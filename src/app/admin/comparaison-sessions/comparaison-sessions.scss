@@ -1,0 +1,68 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  border-radius: 12px;
+  padding: 1.2rem;
+  border: 2px solid transparent;
+
+  &.normale    { background: #eff6ff; border-color: #bfdbfe; }
+  &.rattrapage { background: #fff7ed; border-color: #fed7aa; }
+
+  .sc-type  { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; margin-bottom: 4px; }
+  .sc-label { font-size: 1.1rem; font-weight: 800; color: #1e1e2e; margin-bottom: 0.75rem; }
+
+  .sc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+    font-size: 0.88rem;
+
+    span   { color: #6b7280; }
+    strong { font-size: 1rem; }
+  }
+}
+
+.decision-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 10px;
+  gap: 2px;
+
+  .db-val { background: #16a34a; border-radius: 4px 0 0 4px; display: flex; align-items: center; justify-content: center; font-size: 0px; color: transparent; }
+  .db-rat { background: #d97706; }
+  .db-adj { background: #dc2626; border-radius: 0 4px 4px 0; }
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1.25rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.25rem;
+
+  h3 {
+    margin: 0 0 1rem;
+    font-size: 0.92rem;
+    color: #374151;
+  }
+
+  &.wide { grid-column: 1; }
+}

@@ -1,7 +1,8 @@
-<!-- sidebar.html -->
+<!-- sidebar.html — replace existing -->
 <nav class="sidebar">
   <div class="sidebar-brand">🎓 ExamENS</div>
   <div class="sidebar-role">{{ auth.userRole() | titlecase }}</div>
+
   <ul class="sidebar-nav">
     @for (link of links(); track link.path) {
       <li>
@@ -9,5 +10,11 @@
       </li>
     }
   </ul>
+
+  <!-- Dark mode toggle -->
+  <button class="sidebar-theme" (click)="theme.toggle()">
+    {{ theme.darkMode() ? '☀️ Mode clair' : '🌙 Mode sombre' }}
+  </button>
+
   <button class="sidebar-logout" (click)="auth.logout()">🚪 Déconnexion</button>
 </nav>

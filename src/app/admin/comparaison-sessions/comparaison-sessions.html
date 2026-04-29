@@ -1,0 +1,58 @@
+<div class="page">
+  <div class="page-header">
+    <h2>📊 Comparaison des Sessions</h2>
+  </div>
+
+  @if (error())   { <div class="alert-error">{{ error() }}</div> }
+  @if (loading()) { <div class="loading">Chargement...</div> }
+
+  @if (!loading() && stats().length > 0) {
+
+    <!-- KPI cards -->
+    <div class="stats-grid">
+      @for (s of stats(); track s.session.id) {
+        <div class="stat-card" [class.normale]="s.session.type === 'normale'" [class.rattrapage]="s.session.type !== 'normale'">
+          <div class="sc-type">{{ s.session.type === 'normale' ? '📋 Normale' : '🔄 Rattrapage' }}</div>
+          <div class="sc-label">Session {{ s.session.id }}</div>
+          <div class="sc-row">
+            <span>Moyenne</span>
+            <strong>{{ s.moyenne | noteFormat }}</strong>
+          </div>
+          <div class="sc-row">
+            <span>Taux réussite</span>
+            <strong [style.color]="s.tauxReussite >= 50 ? '#16a34a' : '#dc2626'">{{ s.tauxReussite }}%</strong>
+          </div>
+          <div class="sc-row">
+            <span>Étudiants</span>
+            <strong>{{ s.deliberations.length }}</strong>
+          </div>
+          <div class="decision-bar">
+            <div class="db-val" [style.flex]="s.nbValide"     title="Validé">{{ s.nbValide }}</div>
+            <div class="db-rat" [style.flex]="s.nbRattrapage" title="Rattrapage">{{ s.nbRattrapage }}</div>
+            <div class="db-adj" [style.flex]="s.nbAjourne"    title="Ajourné">{{ s.nbAjourne }}</div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card wide">
+        <h3>📈 Moyenne & Taux de réussite par session</h3>
+        <canvas #chartBar></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>🎯 Radar de performance</h3>
+        <canvas #chartRadar></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>⚖️ Répartition des décisions</h3>
+        <canvas #chartPie></canvas>
+      </div>
+    </div>
+  }
+
+  @if (!loading() && stats().length === 0) {
+    <div class="empty-state">Aucune délibération disponible pour comparer les sessions.</div>
+  }
+</div>

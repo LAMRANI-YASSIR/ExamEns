@@ -1,0 +1,95 @@
+<div class="page">
+  <div class="page-header">
+    <h2>📅 Planning des Examens</h2>
+  </div>
+
+  <!-- Session selector pills -->
+  <div class="session-pills">
+    @for (s of sessions(); track s.id) {
+      <button
+        class="session-btn"
+        [class.active]="s.id === selectedSessionId()"
+        (click)="selectSession(s.id)">
+        {{ s.type === 'normale' ? '📋' : '🔄' }}
+        Session {{ s.id }} — {{ s.type === 'normale' ? 'Normale' : 'Rattrapage' }}
+        <span class="session-dates">{{ s.dateDebut }} → {{ s.dateFin }}</span>
+      </button>
+    }
+  </div>
+
+  @if (error())   { <div class="alert-error">{{ error() }}</div> }
+  @if (loading()) { <div class="loading">Chargement...</div> }
+
+  @if (!loading() && weeks().length > 0) {
+
+    <div class="calendar">
+      <div class="cal-header">
+        @for (d of dayLabels; track d) {
+          <div class="cal-dh" [class.wk]="d === 'Sam' || d === 'Dim'">{{ d }}</div>
+        }
+      </div>
+
+      @for (week of weeks(); track $index) {
+        <div class="cal-week">
+          @for (day of week; track day.date) {
+            <div class="cal-day"
+                 [class.today]="isToday(day.date)"
+                 [class.wk]="isWeekend(day.date)"
+                 [class.has-exam]="day.examens.length > 0">
+
+              <div class="day-num">{{ day.label }}</div>
+
+              @for (card of day.examens; track card.examen.id) {
+                <div class="exam-chip" [style.--c]="card.color">
+                  <span class="chip-code">{{ card.moduleCode }}</span>
+                  <span class="chip-info">{{ card.examen.salle }} · {{ card.examen.duree }}min</span>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="legend">
+      @for (item of legendItems(); track item.code) {
+        <span class="legend-item">
+          <span class="legend-dot" [style.background]="item.color"></span>
+          {{ item.code }} — {{ item.nom }}
+        </span>
+      }
+    </div>
+
+    <div class="exam-list">
+      <h3>📋 Liste détaillée</h3>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Module</th>
+              <th>Code</th>
+              <th>Durée</th>
+              <th>Salle</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (e of examens(); track e.id) {
+              <tr>
+                <td>{{ e.date }}</td>
+                <td>{{ moduleName(e.moduleId) }}</td>
+                <td><span class="mod-badge">{{ moduleCode(e.moduleId) }}</span></td>
+                <td>{{ e.duree }} min</td>
+                <td>{{ e.salle }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  @if (!loading() && weeks().length === 0 && selectedSessionId()) {
+    <div class="empty-state">Aucun examen planifié pour cette session.</div>
+  }
+</div>

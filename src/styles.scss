@@ -230,3 +230,63 @@ body {
 
   .btn { padding: 7px 12px; font-size: 0.85rem; }
 }
+/* ══ ADD THIS TO THE END OF src/styles.scss ══════════════════════ */
+
+/* Dark mode CSS variables */
+:root.dark {
+  --primary:       #818cf8;
+  --primary-dark:  #6366f1;
+  --primary-light: #1e1b4b;
+  --border:        #374151;
+  --text:          #f1f5f9;
+  --text-muted:    #9ca3af;
+  --bg:            #0f172a;
+  --card-bg:       #1e293b;
+
+  color-scheme: dark;
+}
+
+/* Global dark overrides */
+.dark {
+  body { background: var(--bg); color: var(--text); }
+
+  .form-card,
+  .kpi-card,
+  .chart-card,
+  .table-wrapper { background: var(--card-bg); border-color: var(--border); }
+
+  .table {
+    thead tr { background: #1e293b; }
+    th  { color: #94a3b8; border-color: var(--border); }
+    td  { border-color: var(--border); color: var(--text); }
+    tbody tr:hover { background: #334155; }
+  }
+
+  input, select, textarea {
+    background: #1e293b;
+    border-color: var(--border);
+    color: var(--text);
+  }
+
+  .sidebar {
+    background: linear-gradient(180deg, #1e1b4b 0%, #0f0e2a 100%);
+  }
+
+  .login-card {
+    background: #1e293b;
+    color: #f1f5f9;
+  }
+
+  .filter-bar select { background: #1e293b; color: #f1f5f9; }
+
+  .alert-error   { background: #2d1b1b; border-color: #7f1d1d; }
+  .alert-success { background: #14301f; border-color: #166534; }
+
+  .badge-success { background: #14532d; color: #86efac; }
+  .badge-warning { background: #431407; color: #fdba74; }
+  .badge-danger  { background: #450a0a; color: #fca5a5; }
+  .badge-dark    { background: #1e293b; color: #94a3b8; }
+
+  .btn-secondary { background: #374151; color: #f1f5f9; }
+  .empty-state, .loading { color: #6b7280; }
+}

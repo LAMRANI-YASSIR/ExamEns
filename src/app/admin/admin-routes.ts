@@ -6,9 +6,11 @@ import { ExamenList } from './examens/examen-list/examen-list';
 import { ExamenForm } from './examens/examen-form/examen-form';
 import { DeliberationList } from './deliberations/deliberation-list/deliberation-list';
 import { ReleveNotes } from './releve/releve-notes/releve-notes';
+import { Planning } from './planning/planning';
+import { ComparaisonSessions } from './comparaison-sessions/comparaison-sessions';
 
 export const adminRoutes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '',                   redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard',          component: Dashboard },
   { path: 'sessions',           component: SessionList },
   { path: 'sessions/new',       component: SessionForm },
@@ -18,4 +20,6 @@ export const adminRoutes: Routes = [
   { path: 'examens/edit/:id',   component: ExamenForm },
   { path: 'deliberations',      component: DeliberationList },
   { path: 'releve',             component: ReleveNotes },
+  { path: 'planning',           component: Planning },
+  { path: 'comparaison',        component: ComparaisonSessions },
 ];

@@ -1,0 +1,167 @@
+.session-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.session-btn {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  transition: all .2s;
+
+  .session-dates {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #9ca3af;
+    margin-top: 2px;
+  }
+
+  &:hover { border-color: #6366f1; color: #6366f1; }
+  &.active {
+    border-color: #6366f1;
+    background: #ede9fe;
+    color: #4f46e5;
+  }
+}
+
+/* ── Calendar grid ─────────────────────────────────────────── */
+.calendar {
+  margin-bottom: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cal-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: #4f46e5;
+}
+
+.cal-dh {
+  padding: 8px 4px;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+
+  &.wk { opacity: 0.6; }
+}
+
+.cal-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid #e5e7eb;
+}
+
+.cal-day {
+  min-height: 80px;
+  padding: 6px;
+  border-right: 1px solid #f1f5f9;
+  background: white;
+
+  &:last-child { border-right: none; }
+
+  &.wk { background: #fafafa; }
+
+  &.today {
+    background: #eff6ff;
+    .day-num { color: #3b82f6; font-weight: 800; }
+  }
+
+  &.has-exam { background: #faf5ff; }
+}
+
+.day-num {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+/* ── Exam chip ─────────────────────────────────────────────── */
+.exam-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  margin-bottom: 3px;
+  border-left: 3px solid var(--c);
+  background: color-mix(in srgb, var(--c) 12%, white);
+
+  .chip-code {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--c);
+  }
+
+  .chip-info {
+    font-size: 0.65rem;
+    color: #6b7280;
+  }
+}
+
+/* ── Legend ────────────────────────────────────────────────── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  padding: 12px 16px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── List view ─────────────────────────────────────────────── */
+.exam-list {
+  h3 {
+    font-size: 1rem;
+    color: #374151;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.mod-badge {
+  background: #ede9fe;
+  color: #4f46e5;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cal-dh { font-size: 0.65rem; padding: 6px 2px; }
+  .cal-day { min-height: 60px; padding: 4px; }
+  .chip-info { display: none; }
+}

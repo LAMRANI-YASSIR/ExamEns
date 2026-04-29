@@ -1,7 +1,7 @@
-// sidebar.ts
 import { Component, inject, computed } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
+import { ThemeService } from '../../core/services/theme';
 import { TitleCasePipe } from '@angular/common';
 
 @Component({
@@ -11,7 +11,8 @@ import { TitleCasePipe } from '@angular/common';
   styleUrl: './sidebar.scss'
 })
 export class Sidebar {
-  auth = inject(AuthService);
+  auth  = inject(AuthService);
+  theme = inject(ThemeService);
 
   adminLinks = [
     { path: '/admin/dashboard',     label: '📊 Dashboard' },
@@ -19,6 +20,8 @@ export class Sidebar {
     { path: '/admin/examens',       label: '📝 Examens' },
     { path: '/admin/deliberations', label: '⚖️ Délibérations' },
     { path: '/admin/releve',        label: '🖨️ Relevés' },
+    { path: '/admin/planning',      label: '📅 Planning' },
+    { path: '/admin/comparaison',   label: '📊 Comparaison' },
   ];
 
   enseignantLinks = [
