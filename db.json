@@ -356,6 +356,14 @@
       "date": "2026-01-22",
       "duree": 90,
       "salle": "Salle 11"
+    },
+    {
+      "moduleId": "6",
+      "sessionId": "1",
+      "date": "2026-04-10",
+      "duree": 120,
+      "salle": "12",
+      "id": "o6WBE9zs5Go"
     }
   ],
   "notes": [

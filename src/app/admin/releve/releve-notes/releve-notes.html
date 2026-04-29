@@ -1,1 +1,164 @@
-<p>releve-notes works!</p>
+<!-- Print button — hidden when printing -->
+<div class="no-print">
+  <div class="page-header">
+    <h2>🖨️ Relevé de Notes — Admin</h2>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar">
+    <div class="field">
+      <label>Étudiant</label>
+      <select (change)="onEtudiantChange($any($event.target).value)">
+        <option value="">-- Choisir un étudiant --</option>
+        @for (e of etudiants(); track e.id) {
+          <option [value]="e.id">{{ e.nom }} {{ e.prenom }} — {{ e.cne }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Session (optionnel)</label>
+      <select (change)="onSessionChange($any($event.target).value)">
+        <option value="">Toutes les sessions</option>
+        @for (s of sessions(); track s.id) {
+          <option [value]="s.id">
+            Session {{ s.id }} — {{ s.type === 'normale' ? 'Normale' : 'Rattrapage' }} ({{ s.dateDebut }})
+          </option>
+        }
+      </select>
+    </div>
+
+    @if (selectedEtudiant()) {
+      <button class="btn btn-primary" (click)="print()">🖨️ Imprimer</button>
+    }
+  </div>
+
+  @if (error()) { <div class="alert-error">{{ error() }}</div> }
+  @if (loading()) { <div class="loading">Chargement...</div> }
+</div>
+
+<!-- ════ PRINTABLE RELEVE ════ -->
+@if (!loading() && selectedEtudiant() && noteRows().length > 0) {
+  <div class="releve">
+
+    <!-- Header -->
+    <div class="releve-header">
+      <div class="releve-logo">🎓</div>
+      <div class="releve-header-text">
+        <h1>École Normale Supérieure de Meknès</h1>
+        <p>Département Informatique — Année universitaire {{ annee }}</p>
+      </div>
+    </div>
+
+    <h2 class="releve-title">RELEVÉ DE NOTES</h2>
+
+    <!-- Student info grid -->
+    <div class="releve-info">
+      <div class="info-item">
+        <span class="info-label">Nom complet</span>
+        <span class="info-value">{{ selectedEtudiant()!.nom }} {{ selectedEtudiant()!.prenom }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">CNE</span>
+        <span class="info-value">{{ selectedEtudiant()!.cne }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">CIN</span>
+        <span class="info-value">{{ selectedEtudiant()!.cin }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Groupe</span>
+        <span class="info-value">{{ selectedEtudiant()!.groupe }}</span>
+      </div>
+    </div>
+
+    <hr class="releve-divider"/>
+
+    <!-- Notes table -->
+    <table class="releve-table">
+      <thead>
+        <tr>
+          <th>Module</th>
+          <th>Code</th>
+          <th>Coef.</th>
+          <th>CC (/20)</th>
+          <th>Examen (/20)</th>
+          <th>Note Finale (/20)</th>
+          <th>Résultat</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of noteRows(); track row.moduleCode) {
+          <tr [class.row-fail]="!row.valide">
+            <td>{{ row.moduleNom }}</td>
+            <td class="text-center">{{ row.moduleCode }}</td>
+            <td class="text-center">{{ row.coefficient }}</td>
+            <td class="text-center">{{ row.noteCC !== null ? (row.noteCC | noteFormat) : '—' }}</td>
+            <td class="text-center">{{ row.noteExamen | noteFormat }}</td>
+            <td class="text-center note-cell" [class.pass]="row.valide" [class.fail]="!row.valide">
+              <strong>{{ row.noteFinale | noteFormat }}</strong>
+            </td>
+            <td class="text-center">
+              @if (row.valide) {
+                <span class="badge-success"> Validé</span>
+              } @else {
+                <span class="badge-danger"> Non validé</span>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5"><strong>Moyenne Générale Pondérée</strong></td>
+          <td class="text-center" [class.pass]="moyenne() >= 10" [class.fail]="moyenne() < 10">
+            <strong>{{ moyenne() | noteFormat }}</strong>
+          </td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- Deliberation result -->
+    @if (deliberation()) {
+      <div class="releve-result">
+        <div class="result-item">
+          <span class="result-label">Décision</span>
+          <span class="result-value">{{ deliberation()!.decision | decisionLabel }}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Mention</span>
+          <span class="result-value">{{ deliberation()!.mention | mention }}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Classement</span>
+          <span class="result-value">#{{ deliberation()!.rang }}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Modules non validés</span>
+          <span class="result-value">{{ deliberation()!.modulesNonValides }}</span>
+        </div>
+      </div>
+    }
+
+    <!-- Footer -->
+    <div class="releve-footer">
+      <div>
+        <p>Fait à Meknès, le {{ annee }}</p>
+      </div>
+      <div class="signature-area">
+        <p>Le Directeur</p>
+        <p><em>Signature et cachet</em></p>
+        <div class="signature-box"></div>
+      </div>
+    </div>
+  </div>
+}
+
+@if (!loading() && selectedEtudiant() && noteRows().length === 0) {
+  <div class="empty-state">Aucune note disponible pour cet étudiant.</div>
+}
+
+@if (!selectedEtudiant()) {
+  <div class="empty-state no-print">Sélectionnez un étudiant pour afficher son relevé.</div>
+}

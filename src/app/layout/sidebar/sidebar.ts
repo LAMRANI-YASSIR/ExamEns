@@ -2,7 +2,7 @@
 import { Component, inject, computed } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
-import {TitleCasePipe} from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,20 +14,21 @@ export class Sidebar {
   auth = inject(AuthService);
 
   adminLinks = [
-    { path: '/admin/dashboard', label: '📊 Dashboard', icon: '📊' },
-    { path: '/admin/sessions', label: '📅 Sessions' },
-    { path: '/admin/examens', label: '📝 Examens' },
+    { path: '/admin/dashboard',     label: '📊 Dashboard' },
+    { path: '/admin/sessions',      label: '📅 Sessions' },
+    { path: '/admin/examens',       label: '📝 Examens' },
     { path: '/admin/deliberations', label: '⚖️ Délibérations' },
+    { path: '/admin/releve',        label: '🖨️ Relevés' },
   ];
 
   enseignantLinks = [
-    { path: '/enseignant/dashboard', label: '📊 Dashboard' },
+    { path: '/enseignant/dashboard',    label: '📊 Dashboard' },
     { path: '/enseignant/saisie-notes', label: '✏️ Saisie Notes' },
     { path: '/enseignant/notes-module', label: '📋 Notes Module' },
   ];
 
   etudiantLinks = [
-    { path: '/etudiant/mes-notes', label: '📚 Mes Notes' },
+    { path: '/etudiant/mes-notes',    label: '📚 Mes Notes' },
     { path: '/etudiant/releve-notes', label: '🖨️ Relevé' },
   ];
 

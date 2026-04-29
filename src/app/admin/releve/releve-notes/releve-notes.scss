@@ -1,0 +1,271 @@
+@media print {
+  .no-print { display: none !important; }
+  body { margin: 0; background: white; }
+  .releve { padding: 20px; box-shadow: none; }
+  .row-fail { background: #fff5f5 !important; }
+}
+
+/* ── Filter bar (no-print area) ────────────────────────────────── */
+.page-header {
+  margin-bottom: 1rem;
+  h2 { font-size: 1.4rem; color: #1e1e2e; }
+}
+
+.filter-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 220px;
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    select {
+      padding: 9px 12px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      background: white;
+      &:focus { outline: none; border-color: #4f46e5; }
+    }
+  }
+}
+
+/* ── Releve document ──────────────────────────────────────────── */
+.releve {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.92rem;
+  color: #1e1e2e;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+
+.releve-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .releve-logo {
+    font-size: 2.5rem;
+  }
+
+  .releve-header-text {
+    h1 { font-size: 1.05rem; margin: 0; font-family: Arial, sans-serif; }
+    p  { margin: 0.2rem 0 0; color: #555; font-size: 0.85rem; font-family: Arial, sans-serif; }
+  }
+}
+
+.releve-title {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 1.15rem;
+  margin: 1rem 0 0.75rem;
+  font-family: Arial, sans-serif;
+  font-weight: 800;
+  color: #1e1e2e;
+  border-bottom: 2.5px solid #1e1e2e;
+  padding-bottom: 0.5rem;
+}
+
+.releve-divider {
+  border: none;
+  border-top: 1px solid #d1d5db;
+  margin: 1rem 0;
+}
+
+/* ── Student info grid ────────────────────────────────────────── */
+.releve-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 2rem;
+  margin: 1rem 0;
+  font-family: Arial, sans-serif;
+
+  .info-item {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    border-bottom: 1px dotted #d1d5db;
+    padding-bottom: 0.3rem;
+  }
+
+  .info-label {
+    font-size: 0.78rem;
+    color: #6b7280;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    min-width: 90px;
+  }
+
+  .info-value {
+    font-weight: 700;
+    color: #1e1e2e;
+    font-size: 0.92rem;
+  }
+}
+
+/* ── Table ────────────────────────────────────────────────────── */
+.releve-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+  font-family: Arial, sans-serif;
+
+  th {
+    background: #f1f5f9;
+    border: 1px solid #9ca3af;
+    padding: 6px 8px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #374151;
+  }
+
+  td {
+    border: 1px solid #d1d5db;
+    padding: 6px 8px;
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    &:nth-child(even) { background: #f9fafb; }
+    &.row-fail { background: #fff5f5; }
+  }
+
+  tfoot td {
+    background: #f1f5f9;
+    font-size: 0.9rem;
+    border-top: 2px solid #9ca3af;
+  }
+
+  .text-center { text-align: center; }
+
+  .note-cell {
+    font-size: 1rem;
+    &.pass { color: #15803d; }
+    &.fail { color: #dc2626; }
+  }
+}
+
+/* ── Badges ───────────────────────────────────────────────────── */
+.badge-success {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge-danger {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* ── Result banner ────────────────────────────────────────────── */
+.releve-result {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+  padding: 0.85rem 1.25rem;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+
+  .result-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .result-label {
+    font-size: 0.72rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  .result-value {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1e1e2e;
+  }
+}
+
+/* ── Footer ───────────────────────────────────────────────────── */
+.releve-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 3rem;
+  color: #555;
+  font-size: 0.88rem;
+  font-family: Arial, sans-serif;
+}
+
+.signature-area {
+  text-align: center;
+  p { margin: 0.2rem 0; }
+}
+
+.signature-box {
+  width: 160px;
+  height: 65px;
+  border: 1px solid #9ca3af;
+  margin: 0.5rem auto 0;
+  border-radius: 4px;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .releve {
+    padding: 1rem;
+  }
+
+  .releve-info {
+    grid-template-columns: 1fr;
+  }
+
+  .releve-result {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .releve-footer {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+}
