@@ -6,8 +6,13 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  transition: width .25s ease;
+  transition: width .25s ease, background .3s ease;
   overflow: hidden;
+}
+
+/* ✅ Dark mode override via host-context */
+:host-context(.dark) .sidebar {
+  background: linear-gradient(180deg, #1e1b4b 0%, #0f0e2a 100%);
 }
 
 .sidebar-brand {
@@ -61,8 +66,25 @@
   }
 }
 
+.sidebar-theme {
+  margin: 0 1rem 0.5rem;
+  padding: 0.55rem 1rem;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: left;
+  transition: background .2s;
+  white-space: nowrap;
+
+  &:hover { background: rgba(255,255,255,0.22); }
+}
+
 .sidebar-logout {
-  margin: 0.75rem 1rem 1.2rem;
+  margin: 0.25rem 1rem 1.2rem;
   padding: 0.55rem 1rem;
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.2);
@@ -113,6 +135,12 @@
   }
 
   .sidebar-logout {
+    margin: 0;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  .sidebar-theme {
     margin: 0;
     padding: 0.4rem 0.75rem;
     font-size: 0.82rem;

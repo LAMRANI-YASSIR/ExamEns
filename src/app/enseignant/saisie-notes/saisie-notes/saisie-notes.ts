@@ -79,9 +79,11 @@ export class SaisieNotes implements OnInit {
     this.clearGrid();
     if (!id) return;
     this.selectedSessionId.set(id);
-    const myModuleIds = this.mesModules().map(m => m.id);
+
+    // ✅ FIX 1: +m.id et +e.moduleId pour éviter le mismatch string/number
+    const myModuleIds = this.mesModules().map(m => +m.id);
     this.examenSvc.getBySession(id).subscribe(examens =>
-      this.examensFiltres.set(examens.filter(e => myModuleIds.includes(e.moduleId)))
+      this.examensFiltres.set(examens.filter(e => myModuleIds.includes(+e.moduleId)))
     );
   }
 
@@ -93,8 +95,9 @@ export class SaisieNotes implements OnInit {
     this.saved.set(false);
     this.error.set('');
 
-    const examen = this.examensFiltres().find(e => e.id === id)!;
-    const module = this.mesModules().find(m => m.id === examen.moduleId)!;
+    // ✅ FIX 2: +e.id et +m.id pour trouver l'examen et le module correctement
+    const examen = this.examensFiltres().find(e => +e.id === id)!;
+    const module = this.mesModules().find(m => +m.id === +examen.moduleId)!;
     this.selectedModule.set(module);
     this.loading.set(true);
 
@@ -116,7 +119,8 @@ export class SaisieNotes implements OnInit {
   private buildGrid(etudiants: Etudiant[], existingNotes: Note[], module: Module): void {
     this.clearGrid();
     etudiants.forEach(etudiant => {
-      const existing = existingNotes.find(n => n.etudiantId === etudiant.id);
+      // ✅ FIX 3: +n.etudiantId et +etudiant.id pour matcher correctement
+      const existing = existingNotes.find(n => +n.etudiantId === +etudiant.id);
       const group = this.fb.group({
         etudiantId:  [etudiant.id],
         etudiantNom: [`${etudiant.nom} ${etudiant.prenom}`],
@@ -171,8 +175,9 @@ export class SaisieNotes implements OnInit {
       .filter(n => n !== null && (n as number) >= 10).length;
   }
 
+  // ✅ FIX 4: +m.id et +examen.moduleId pour afficher le bon nom dans le dropdown
   moduleName(examen: Examen): string {
-    const m = this.mesModules().find(m => m.id === examen.moduleId);
+    const m = this.mesModules().find(m => +m.id === +examen.moduleId);
     return m ? `${m.code} — ${m.nom}` : `Module #${examen.moduleId}`;
   }
 
@@ -209,10 +214,11 @@ export class SaisieNotes implements OnInit {
       next: () => {
         this.saving.set(false);
         this.saved.set(true);
+        // ✅ FIX 5: +n.etudiantId pour matcher après sauvegarde
         this.noteSvc.getByExamen(examenId).subscribe(notes => {
           rows.forEach(row => {
             const etId  = row.get('etudiantId')!.value as number;
-            const found = notes.find(n => n.etudiantId === etId);
+            const found = notes.find(n => +n.etudiantId === etId);
             if (found) row.get('noteId')!.setValue(found.id);
           });
         });

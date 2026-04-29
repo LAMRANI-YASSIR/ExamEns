@@ -22,8 +22,10 @@ import { Sidebar } from '../sidebar/sidebar';
     .main-content {
       flex: 1;
       padding: 1.5rem;
-      background: #f5f5f5;
+      background: var(--bg);        /* ✅ FIX: CSS variable → dark mode fonctionne */
+      color: var(--text);
       overflow-y: auto;
+      transition: background .3s ease, color .3s ease;
     }
   `]
 })
